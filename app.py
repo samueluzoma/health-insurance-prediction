@@ -43,5 +43,14 @@ def predict():
         print(f"ERROR: {str(e)}")
         return jsonify({'error': str(e), 'status': 'fail'})
 
+# if __name__ == '__main__':
+#     app.run(debug=True, port=5002)
+import os
+
 if __name__ == '__main__':
-    app.run(debug=True, port=5002)
+    # Use the PORT environment variable if it exists (for Render), 
+    # otherwise default to 5002 for local testing.
+    port = int(os.environ.get("PORT", 5002))
+    
+    # Set debug=False for deployment; host="0.0.0.0" is required for cloud access
+    app.run(host="0.0.0.0", port=port, debug=False)
